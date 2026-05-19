@@ -11,5 +11,6 @@ LOGS_PATH = os.path.join('logs')
 ACTIONS = np.array(['hello', 'thanks', 'iloveyou', 'please', 'sorry'])
 
 # 3. Thông số kỹ thuật cho mô hình
-NO_SEQUENCES = 30     # Số lượng video thu thập cho mỗi hành động
+# pyrefly: ignore [parse-error]
+NO_SEQUENCES =      # Số lượng video thu thập cho mỗi hành động
 SEQUENCE_LENGTH = 30  # Số lượng frame (khung hình) bắt buộc cho mỗi video
