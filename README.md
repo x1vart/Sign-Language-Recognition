@@ -49,7 +49,7 @@ Quy trình hoạt động (Pipeline) của hệ thống được chia làm 3 mod
 
 ## 📂 Dataset Strategy
 Để tối ưu hóa chi phí huấn luyện, dự án sử dụng tập con (subset) của bộ dữ liệu **WLASL (Word-Level American Sign Language)**.
-- **Classes:** 5 từ vựng cơ bản (Hello, Thanks, I Love You, Please, Sorry).
+- **Classes:** 5 từ vựng cơ bản (Hello, Thank You, Love, Please, Sorry).
 - **Data Engineering:** Toàn bộ dữ liệu video thô (.mp4) được chạy qua batch-script để chuyển đổi thành các mảng NumPy (`.npy`).
 - *Lưu ý: Dữ liệu thô và mô hình trọng số (`.h5`) được bỏ qua (ignored) trên repository này theo tiêu chuẩn quản lý mã nguồn.*
 
