@@ -1,13 +1,15 @@
 import os
+import numpy as np
 
-# Đường dẫn đến thư mục chứa dữ liệu đã được xử lý (trích xuất đặc trưng/keypoints)
+# 1. Đường dẫn các thư mục cần thiết
 DATA_PATH = os.path.join('data', 'processed')
+MODELS_PATH = os.path.join('models')
+LOGS_PATH = os.path.join('logs')
 
-# Các hành động (ngôn ngữ ký hiệu) cần nhận diện
-ACTIONS = ['hello', 'thanks', 'iloveyou']
+# 2. Các hành động (từ vựng) cần nhận diện
+# Đã chốt 5 từ cơ bản theo file README
+ACTIONS = np.array(['hello', 'thanks', 'iloveyou', 'please', 'sorry'])
 
-# Số lượng video (sequence) sẽ thu thập cho mỗi hành động
-NO_SEQUENCES = 30
-
-# Số lượng frame (khung hình) cho mỗi video (sequence)
-SEQUENCE_LENGTH = 30
+# 3. Thông số kỹ thuật cho mô hình
+NO_SEQUENCES = 30     # Số lượng video thu thập cho mỗi hành động
+SEQUENCE_LENGTH = 30  # Số lượng frame (khung hình) bắt buộc cho mỗi video
