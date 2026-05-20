@@ -1,6 +1,6 @@
 <div align="center">
 
-#  VNU-IS: Real-time Sign Language Translation System
+#   Real-time Sign Language Translation System
 
 **A Computer Vision & Deep Learning approach for continuous sign language recognition.**
 
