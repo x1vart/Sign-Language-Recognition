@@ -1,6 +1,10 @@
+# Core dependencies
+tensorflow==2.15.0
+protobuf==4.25.3
+mediapipe==0.10.14
 opencv-python
-mediapipe
-tensorflow
-numpy
+
+# Data Manipulation & Math
+numpy==1.26.4
 scikit-learn
 matplotlib
