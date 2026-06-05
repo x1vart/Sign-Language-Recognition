@@ -4,7 +4,7 @@ import sys
 # Đảm bảo có thể import từ src
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from tensorflow.keras.callbacks import TensorBoard, EarlyStopping
+from tensorflow.keras.callbacks import TensorBoard
 from src.preprocessing import load_data
 from src.model import build_model, get_available_models
 from src.config import MODELS_PATH, LOGS_PATH
@@ -37,14 +37,12 @@ def train():
         
         # Callbacks
         tb_callback = TensorBoard(log_dir=os.path.join(LOGS_PATH, m_name))
-        # Dừng sớm nếu model không cải thiện độ chính xác trong vòng 30 epoch (tránh overfitting)
-        early_stop = EarlyStopping(monitor='val_categorical_accuracy', patience=30, restore_best_weights=True)
         
         # Training
         model.fit(
             X_train, y_train, 
             epochs=100, 
-            callbacks=[tb_callback, early_stop], 
+            callbacks=[tb_callback], 
             validation_data=(X_test, y_test)
         )
         
