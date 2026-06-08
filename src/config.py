@@ -7,19 +7,21 @@ MODELS_PATH = os.path.join('models')
 LOGS_PATH = os.path.join('logs')
 
 # 2. Các hành động (từ vựng) cần nhận diện
-# Bộ 18 từ vựng ghép thành 5 câu hoàn chỉnh (mỗi câu 4-5 từ):
-# 1. "hello how are you today" (5 từ)
-# 2. "i am fine thank you" (5 từ)
-# 3. "please can you help me" (5 từ)
-# 4. "i love you very much" (5 từ)
-# 5. "sorry i am late today" (5 từ)
-ACTIONS = np.array([
-    'hello', 'how', 'are', 'you', 'today',
-    'i', 'am', 'fine', 'thank',
-    'please', 'can', 'help', 'me',
-    'love', 'very', 'much',
-    'sorry', 'late'
-])
+_actions = []
+if os.path.exists(DATA_PATH):
+    _actions = [d for d in os.listdir(DATA_PATH) if os.path.isdir(os.path.join(DATA_PATH, d))]
+
+if len(_actions) > 0:
+    ACTIONS = np.array(sorted(_actions))
+else:
+    # THÊM TỪ 'idle' ĐỂ CHỐNG NHIỄU KHI HẠ TAY
+    ACTIONS = np.array([
+        'hello', 'how', 'are', 'you', 'today',
+        'i', 'am', 'fine', 'thank',
+        'please', 'can', 'help', 'me',
+        'love', 'very', 'much',
+        'sorry', 'late', 'idle' 
+    ])
 
 # 3. Thông số kỹ thuật cho mô hình
 NO_SEQUENCES = 30     # Số lượng video (chuỗi) thu thập cho mỗi hành động

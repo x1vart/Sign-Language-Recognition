@@ -1,10 +1,8 @@
 import os
 import sys
-
-# Đảm bảo có thể import từ src
+import json
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
-from tensorflow.keras.callbacks import TensorBoard
+from tensorflow.keras.callbacks import TensorBoard, EarlyStopping
 from src.preprocessing import load_data
 from src.model import build_model, get_available_models
 from src.config import MODELS_PATH, LOGS_PATH
@@ -37,21 +35,25 @@ def train():
         
         # Callbacks
         tb_callback = TensorBoard(log_dir=os.path.join(LOGS_PATH, m_name))
+        early_stopping = EarlyStopping(monitor='val_loss', patience=20, restore_best_weights=True)
         
         # Training
-        model.fit(
+        history = model.fit(
             X_train, y_train, 
-            epochs=100, 
-            callbacks=[tb_callback], 
+            epochs=150, 
+            callbacks=[tb_callback, early_stopping], 
             validation_data=(X_test, y_test)
         )
+        
+        # Lưu lịch sử huấn luyện ra file JSON để phục vụ cho tính năng Evaluation
+        history_path = os.path.join(LOGS_PATH, f'{m_name.lower()}_history.json')
+        with open(history_path, 'w', encoding='utf-8') as f:
+            json.dump(history.history, f)
         
         # Lưu file weights (.h5) khớp với app.py
         save_path = os.path.join(MODELS_PATH, f'{m_name.lower()}_model.h5')
         model.save_weights(save_path)
         print(f"\n[+] ĐÃ LƯU THÀNH CÔNG trọng số cho {m_name} tại: {save_path}")
-
     print("\n[*] Đã huấn luyện xong toàn bộ các model! Bạn có thể chạy `python app.py` để trải nghiệm.")
-
 if __name__ == '__main__':
     train()
