@@ -67,12 +67,16 @@ Sign-Language-Recognition/
 ├── data/                   # [Ignored] Dữ liệu video thô và đã xử lý (.npy)
 ├── models/                 # [Ignored] Trọng số mô hình đã train (.h5)
 ├── logs/                   # [Ignored] Lịch sử huấn luyện Tensorboard
+├── notebooks/              # Jupyter notebooks phân tích dữ liệu và train thử
+├── results/                # Các biểu đồ đánh giá mô hình (Confusion Matrix, Curves)
 ├── src/                    
 │   ├── config.py           # Cấu hình danh sách từ vựng & tham số model
 │   ├── data_collection.py  # Script mở webcam thu thập dữ liệu train
 │   ├── auto_process.py     # Script bóc tách dữ liệu từ file .mp4 có sẵn
 │   ├── preprocessing.py    # Xử lý Label Encoding & Train-test split
 │   ├── model.py            # Kiến trúc các model mạng (LSTM, GRU, Dense)
+│   ├── train.py            # Kịch bản tự động train các mô hình
+│   ├── evaluation.py       # Kịch bản đánh giá và vẽ biểu đồ hiệu suất
 │   └── utils.py            # Hàm xử lý MediaPipe và vẽ Landmarks
 ├── .gitignore              # Quy tắc loại trừ file
 ├── app.py                  # Ứng dụng chính (Giao diện nhận diện Real-time)
