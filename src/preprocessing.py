@@ -7,6 +7,7 @@ from tensorflow.keras.utils import to_categorical
 # Đảm bảo có thể import từ src nếu chạy độc lập
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.config import DATA_PATH, ACTIONS, SEQUENCE_LENGTH
+from src.utils import normalize_frame
 
 def load_data():
     """
@@ -47,10 +48,25 @@ def load_data():
         return None, None, None, None
         
     X = np.array(sequences)
+    
+    # 1. Chuẩn hoá toạ độ (Normalize) toàn bộ tập dữ liệu
+    print("[*] Đang chuẩn hoá toạ độ (Normalization) để tăng độ chính xác...")
+    for i in range(len(X)):
+        for j in range(len(X[i])):
+            X[i][j] = normalize_frame(X[i][j])
+            
     y = to_categorical(labels, num_classes=len(ACTIONS))
     
     # Chia 10% tập test
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+    
+    # 2. Data Augmentation: Thêm nhiễu Gaussian để tăng x2 lượng dữ liệu train
+    print("[*] Đang thực hiện Data Augmentation (thêm nhiễu)...")
+    noise = np.random.normal(0, 0.005, X_train.shape)
+    X_train_noisy = X_train + noise
+    X_train = np.concatenate((X_train, X_train_noisy))
+    y_train = np.concatenate((y_train, y_train))
+    
     return X_train, X_test, y_train, y_test
 
 if __name__ == '__main__':
